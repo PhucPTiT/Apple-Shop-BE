@@ -33,7 +33,7 @@ public class UserEntity extends BaseEntity {
 	private String phone;
 	
 	@Column(name = "role")
-	private Boolean role;
+	private long role;
 	
 	@ManyToMany
 	@JoinTable(name = "user_comment",
@@ -95,11 +95,11 @@ public class UserEntity extends BaseEntity {
 		this.phone = phone;
 	}
 
-	public Boolean getRole() {
+	public long getRole() {
 		return role;
 	}
 
-	public void setRole(Boolean role) {
+	public void setRole(long role) {
 		this.role = role;
 	}
 

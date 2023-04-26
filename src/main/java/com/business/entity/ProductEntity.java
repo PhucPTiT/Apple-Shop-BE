@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -21,27 +22,15 @@ public class ProductEntity extends BaseEntity {
 	@Column(name = "product_code")
 	private String code;
 	
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
+	@Column(name = "image_link")
+	private String imgLink;
 
 	@Column(name = "description")
 	private String description;
 	
-	@Column(name = "imgLink")
-	private String imgLink;
-	
-	
 	@ManyToOne
 	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	private CategoryEntity category;
-	
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ProductDetailEntity> productDetails = new ArrayList<>();
 	
 	@ManyToMany(mappedBy = "products")
 	private List<CommentEntity> comments = new ArrayList<>();
@@ -51,6 +40,26 @@ public class ProductEntity extends BaseEntity {
 	
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CartItemEntity> orderItems = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ProductMemoryEntity> memories = new ArrayList<>();
+	
+	
+	
+	@ManyToMany
+	@JoinTable(name = "product_color",
+	joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "color_id", referencedColumnName = "id"))
+	private List<ColorEntity> colors = new ArrayList<>();
+	
+	
+	public String getCode() {
+		return code;
+	}
+	
+	public void setCode(String code) {
+		this.code = code;
+	}
 	
 	public String getName() {
 		return name;
@@ -67,15 +76,6 @@ public class ProductEntity extends BaseEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public String getImgLink() {
-		return imgLink;
-	}
-
-	public void setImgLink(String imgLink) {
-		this.imgLink = imgLink;
-	}
-
 	public CategoryEntity getCategory() {
 		return category;
 	}
@@ -84,13 +84,6 @@ public class ProductEntity extends BaseEntity {
 		this.category = category;
 	}
 	
-	public List<ProductDetailEntity> getProductDetails() {
-		return productDetails;
-	}
-	
-	public void setProductDetails(List<ProductDetailEntity> productDetails) {
-		this.productDetails = productDetails;
-	}
 	
 	public List<CommentEntity> getComments() {
 		return comments;
@@ -115,6 +108,33 @@ public class ProductEntity extends BaseEntity {
 	public void setOrderItems(List<CartItemEntity> orderItems) {
 		this.orderItems = orderItems;
 	}
+
+	public List<ProductMemoryEntity> getMemories() {
+		return memories;
+	}
+
+	public void setMemories(List<ProductMemoryEntity> memories) {
+		this.memories = memories;
+	}
+
+
+	public String getImgLink() {
+		return imgLink;
+	}
+
+	public void setImgLink(String imgLink) {
+		this.imgLink = imgLink;
+	}
+
+	public List<ColorEntity> getColors() {
+		return colors;
+	}
+
+	public void setColors(List<ColorEntity> colors) {
+		this.colors = colors;
+	}
+	
+
 	
 }
 /*

@@ -1,5 +1,7 @@
 package com.business.api;
 
+import javax.annotation.security.PermitAll;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +29,14 @@ public class UserAPI {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
     }
-
+	
 	@PostMapping(value = "/api/login")
+	@PermitAll
 	public ResponseEntity<String> login(@RequestBody UserDTO model) {
+		System.out.println(model);
 		try {
-			userService.login(model.getUserName(), model.getPassword());
-			return ResponseEntity.ok("Đăng nhập thành công");
+			return ResponseEntity.ok(userService.login(model.getUserName(), model.getPassword()));
+//			return ResponseEntity.ok("Đăng nhập thành công");
 		} catch(RuntimeException ex) {
 			if(ex.getMessage().equals("Tên người dùng không tồn tại")) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tên người dùng không tồn tại");

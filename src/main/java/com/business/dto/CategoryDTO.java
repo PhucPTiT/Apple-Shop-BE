@@ -1,11 +1,8 @@
 package com.business.dto;
 
-import java.util.List;
-
 public class CategoryDTO extends AbstractDTO {
 	private String name;
 	private String code;
-	private List<ProductDTO> productDTOs;
 	
 	public String getName() {
 		return name;
@@ -18,13 +15,5 @@ public class CategoryDTO extends AbstractDTO {
 	}
 	public void setCode(String code) {
 		this.code = code;
-	}
-	public List<ProductDTO> getProductDTOs() {
-		return productDTOs;
-	}
-	public void setProductDTOs(List<ProductDTO> productDTOs) {
-		this.productDTOs = productDTOs;
-	}
-	
-	
+	}	
 }

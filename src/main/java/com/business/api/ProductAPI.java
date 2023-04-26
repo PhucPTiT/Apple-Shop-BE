@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.business.dto.CategoryDTO;
 import com.business.dto.ProductDTO;
 import com.business.service.impl.ProductService;
 
@@ -52,7 +51,7 @@ public class ProductAPI {
 	}
 	
 	@GetMapping(value = "/api/product")
-	public List<CategoryDTO> getAllProduct() {
+	public List<ProductDTO> getAllProduct() {
 		return productService.getAllProduct();
 	}
 }

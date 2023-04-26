@@ -27,6 +27,7 @@ public class BaseEntity {
 	public Long getId() {
 		return id;
 	}
+	
 	public String getCreatBy() {
 		return creatBy;
 	}

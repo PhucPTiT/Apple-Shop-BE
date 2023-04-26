@@ -14,7 +14,7 @@ public class UserConverter {
 		entity.setUsername(dto.getUserName());
 		entity.setPassword(dto.getPassword());
 		entity.setPhone(dto.getPhone());
-		entity.setRole(false);
+		entity.setRole(0);
 		return entity;
 	}
 	public UserDTO toDTO(UserEntity entity) {
@@ -24,7 +24,7 @@ public class UserConverter {
 		dto.setUserName(entity.getUsername());
 		dto.setPassword(entity.getPassword());
 		dto.setPhone(entity.getPhone());
-		dto.setRole(false);
+		dto.setRole(0);
 		return dto;
 	}
 }

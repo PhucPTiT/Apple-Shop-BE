@@ -4,11 +4,16 @@ import java.util.List;
 
 public class ProductDTO extends AbstractDTO {
 	private String name;
-	private String description;
-	private String imgLink;
 	private String code;
 	private String categoryCode;
-	private List<ProductDetailDTO> productDetailDTOs;
+	private String description;
+	private String imgLinks;
+	private List<Long> colors;
+	private List<TypeDTO> list;
+	
+	private CategoryDTO categoryDTO;
+	private List<ColorDTO> colorDTOs;
+	
 	
 	public String getName() {
 		return name;
@@ -22,23 +27,11 @@ public class ProductDTO extends AbstractDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getImgLink() {
-		return imgLink;
-	}
-	public void setImgLink(String imgLink) {
-		this.imgLink = imgLink;
-	}
 	public String getCategoryCode() {
 		return categoryCode;
 	}
 	public void setCategoryCode(String categoryCode) {
 		this.categoryCode = categoryCode;
-	}
-	public List<ProductDetailDTO> getProductDetailDTOs() {
-		return productDetailDTOs;
-	}
-	public void setProductDetailDTOs(List<ProductDetailDTO> productDetailDTOs) {
-		this.productDetailDTOs = productDetailDTOs;
 	}
 	public String getCode() {
 		return code;
@@ -46,6 +39,38 @@ public class ProductDTO extends AbstractDTO {
 	public void setCode(String code) {
 		this.code = code;
 	}
+	public List<Long> getColors() {
+		return colors;
+	}
+	public void setColors(List<Long> colors) {
+		this.colors = colors;
+	}
+	public String getImgLinks() {
+		return imgLinks;
+	}
+	public void setImgLinks(String imgLinks) {
+		this.imgLinks = imgLinks;
+	}
+	public List<TypeDTO> getList() {
+		return list;
+	}
+	public void setList(List<TypeDTO> list) {
+		this.list = list;
+	}
+	public CategoryDTO getCategoryDTO() {
+		return categoryDTO;
+	}
+	public void setCategoryDTO(CategoryDTO categoryDTO) {
+		this.categoryDTO = categoryDTO;
+	}
+	public List<ColorDTO> getColorDTOs() {
+		return colorDTOs;
+	}
+	public void setColorDTOs(List<ColorDTO> colorDTOs) {
+		this.colorDTOs = colorDTOs;
+	}
+
+	
 	
 	
 }
