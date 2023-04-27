@@ -1,7 +1,5 @@
 package com.business.api;
 
-import javax.annotation.security.PermitAll;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +7,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.business.dto.UserDTO;
 import com.business.service.impl.UserService;
@@ -31,7 +28,6 @@ public class UserAPI {
     }
 	
 	@PostMapping(value = "/api/login")
-	@PermitAll
 	public ResponseEntity<String> login(@RequestBody UserDTO model) {
 		System.out.println(model);
 		try {
