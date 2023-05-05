@@ -1,11 +1,13 @@
 package com.business.rest;
 
 import java.io.IOException;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,15 +19,13 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import com.business.entity.UserEntity;
 import com.business.repository.UserRepository;
 import com.business.service.impl.JwtService;
-import com.business.service.impl.UserService;
 
 
 public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthenticationFilter {
   private final static String TOKEN_HEADER = "authorization";
   @Autowired
   private JwtService jwtService;
-  @Autowired
-  private UserService userService;
+ 
   
   @Autowired
   private UserRepository userRepository;
@@ -43,7 +43,7 @@ public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthentication
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
         UserDetails userDetail = new User(username, user.getPassword(), enabled, accountNonExpired,
-            credentialsNonExpired, accountNonLocked, user.getRole());
+            credentialsNonExpired, accountNonLocked, user.getAuthorities());
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail,
             null, userDetail.getAuthorities());
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));

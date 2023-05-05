@@ -2,6 +2,8 @@ package com.business.service.impl;
 
 import java.util.Date;
 
+import org.springframework.stereotype.Service;
+
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
 import com.nimbusds.jose.JWSSigner;
@@ -11,14 +13,16 @@ import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 
+
+@Service
 public class JwtService {
 	public static final String USERNAME = "username";
 	public static final String ROLE = "role";
 	public static final String SECRET_KEY = "11111111111111111111111111111111";
-	public static final int EXPIRE_TIME = 86400000;
+	public static final int EXPIRE_TIME = 1800000;
 	
 	
-	public String generateTokenLogin(String username, Long role) {
+	public String generateTokenLogin(String username, int role) {
 	    String token = null;
 	    try {
 	      // Create HMAC signer

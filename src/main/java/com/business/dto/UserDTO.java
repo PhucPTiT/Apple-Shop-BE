@@ -6,7 +6,7 @@ public class UserDTO extends AbstractDTO {
 	private String userName;
 	private String password;
 	private String phone;
-	private long role;
+	private int role;
 	private String email;
 	
 	public String getAddress() {
@@ -40,10 +40,10 @@ public class UserDTO extends AbstractDTO {
 		this.phone = phone;
 	}
 	
-	public long isRole() {
+	public int isRole() {
 		return role;
 	}
-	public void setRole(long role) {
+	public void setRole(int role) {
 		this.role = role;
 	}
 	public String getEmail() {

@@ -1,5 +1,7 @@
 package com.business.api;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +30,11 @@ public class UserAPI {
     }
 	
 	@PostMapping(value = "/api/login")
-	public ResponseEntity<String> login(@RequestBody UserDTO model) {
+	public ResponseEntity<String> login(HttpServletRequest request,@RequestBody UserDTO model) {
 		System.out.println(model);
 		try {
-			return ResponseEntity.ok(userService.login(model.getUserName(), model.getPassword()));
+			
+			return userService.login(model.getUserName(), model.getPassword());
 //			return ResponseEntity.ok("Đăng nhập thành công");
 		} catch(RuntimeException ex) {
 			if(ex.getMessage().equals("Tên người dùng không tồn tại")) {

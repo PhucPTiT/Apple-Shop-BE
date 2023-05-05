@@ -11,6 +11,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 @Entity
 @Table(name = "user")
 public class UserEntity extends BaseEntity {
@@ -33,7 +36,7 @@ public class UserEntity extends BaseEntity {
 	private String phone;
 	
 	@Column(name = "role")
-	private long role;
+	private int role;
 	
 	@ManyToMany
 	@JoinTable(name = "user_comment",
@@ -95,11 +98,11 @@ public class UserEntity extends BaseEntity {
 		this.phone = phone;
 	}
 
-	public long getRole() {
+	public int getRole() {
 		return role;
 	}
 
-	public void setRole(long role) {
+	public void setRole(int role) {
 		this.role = role;
 	}
 
@@ -126,5 +129,13 @@ public class UserEntity extends BaseEntity {
 	public void setOrder(OrderEntity order) {
 		this.order = order;
 	}
-	
+	public List<GrantedAuthority> getAuthorities() {
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		if(this.role == 1) {
+			authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		} else {
+			authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+		}
+		return authorities;
+	}
 }
