@@ -54,6 +54,16 @@ public class ProductAPI {
 	public List<ProductDTO> getAllProduct() {
 		return productService.getAllProduct();
 	}
+	
+	@GetMapping(value = "/api/product/{device}")
+	public List<ProductDTO> getProductByCategory(@PathVariable String device) {
+		return productService.getProductByCategory(device);
+	}
+	
+	@GetMapping(value = "/api/product/code/{code}")
+	public ProductDTO getProductByCode(@PathVariable String code) {
+		return productService.getProductByCode(code);
+	}
 }
 
 /*http_method

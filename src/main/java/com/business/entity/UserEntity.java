@@ -3,11 +3,10 @@ package com.business.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -38,17 +37,17 @@ public class UserEntity extends BaseEntity {
 	@Column(name = "role")
 	private int role;
 	
-	@ManyToMany
-	@JoinTable(name = "user_comment",
-	joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-	inverseJoinColumns = @JoinColumn(name = "comment_id", referencedColumnName = "id"))
-	private List<ProductEntity> comments = new ArrayList<>();
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<CartEntity> cart = new ArrayList<>();
 	
-	@OneToOne(mappedBy = "user")
-	private CartEntity cart;
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<OrderEntity> order = new ArrayList<>();
 	
-	@OneToOne(mappedBy = "user")
-	private OrderEntity order;
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
+	private ImageEntity imageEntity;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<CommentEntity> comments = new ArrayList<>();
 	
 	public String getFullName() {
 		return fullName;
@@ -106,29 +105,38 @@ public class UserEntity extends BaseEntity {
 		this.role = role;
 	}
 
-	public List<ProductEntity> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<ProductEntity> comments) {
-		this.comments = comments;
-	}
-
-	public CartEntity getCart() {
+	public List<CartEntity> getCart() {
 		return cart;
 	}
 
-	public void setCart(CartEntity cart) {
+	public void setCart(List<CartEntity> cart) {
 		this.cart = cart;
 	}
 
-	public OrderEntity getOrder() {
+	public List<OrderEntity> getOrder() {
 		return order;
 	}
 
-	public void setOrder(OrderEntity order) {
+	public void setOrder(List<OrderEntity> order) {
 		this.order = order;
 	}
+	public ImageEntity getImageEntity() {
+		return imageEntity;
+	}
+	
+	public void setImageEntity(ImageEntity imageEntity) {
+		this.imageEntity = imageEntity;
+	}
+	
+
+	public List<CommentEntity> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<CommentEntity> comments) {
+		this.comments = comments;
+	}
+
 	public List<GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		if(this.role == 1) {
@@ -138,4 +146,6 @@ public class UserEntity extends BaseEntity {
 		}
 		return authorities;
 	}
+
+	
 }

@@ -18,18 +18,22 @@ import com.nimbusds.jwt.SignedJWT;
 public class JwtService {
 	public static final String USERNAME = "username";
 	public static final String ROLE = "role";
+	public static final String NAME = "name";
+	public static final String ID = "id";
 	public static final String SECRET_KEY = "11111111111111111111111111111111";
-	public static final int EXPIRE_TIME = 1800000;
+	public static final int EXPIRE_TIME = 100000000;
 	
 	
-	public String generateTokenLogin(String username, int role) {
+	public String generateTokenLogin(String username, int role, String name, Long id) {
 	    String token = null;
 	    try {
 	      // Create HMAC signer
 	      JWSSigner signer = new MACSigner(generateShareSecret());
 	      JWTClaimsSet.Builder builder = new JWTClaimsSet.Builder();
 	      builder.claim(USERNAME, username);
+	      builder.claim(NAME, name);
 	      builder.claim(ROLE, role);
+	      builder.claim(ID, id);
 	      builder.expirationTime(generateExpirationDate());
 	      JWTClaimsSet claimsSet = builder.build();
 	      SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.HS256), claimsSet);

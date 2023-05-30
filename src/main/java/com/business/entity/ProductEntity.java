@@ -32,19 +32,14 @@ public class ProductEntity extends BaseEntity {
 	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	private CategoryEntity category;
 	
-	@ManyToMany(mappedBy = "products")
-	private List<CommentEntity> comments = new ArrayList<>();
-	
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<CartItemEntity> cardItems = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<CartItemEntity> orderItems = new ArrayList<>();
+	private List<CartEntity> cart = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ProductMemoryEntity> memories = new ArrayList<>();
 	
-	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<CommentEntity> comments = new ArrayList<>();
 	
 	@ManyToMany
 	@JoinTable(name = "product_color",
@@ -93,22 +88,6 @@ public class ProductEntity extends BaseEntity {
 		this.comments = comments;
 	}
 
-	public List<CartItemEntity> getCardItems() {
-		return cardItems;
-	}
-
-	public void setCardItems(List<CartItemEntity> cardItems) {
-		this.cardItems = cardItems;
-	}
-
-	public List<CartItemEntity> getOrderItems() {
-		return orderItems;
-	}
-
-	public void setOrderItems(List<CartItemEntity> orderItems) {
-		this.orderItems = orderItems;
-	}
-
 	public List<ProductMemoryEntity> getMemories() {
 		return memories;
 	}
@@ -133,8 +112,17 @@ public class ProductEntity extends BaseEntity {
 	public void setColors(List<ColorEntity> colors) {
 		this.colors = colors;
 	}
-	
 
+	public List<CartEntity> getCart() {
+		return cart;
+	}
+
+	public void setCart(List<CartEntity> cart) {
+		this.cart = cart;
+	}
+
+	
+	
 	
 }
 /*

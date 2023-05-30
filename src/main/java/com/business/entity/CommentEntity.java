@@ -1,39 +1,53 @@
 package com.business.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "comment")
-public class CommentEntity extends BaseEntity {
+public class CommentEntity{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name = "timeCmt")
+	private Date timeCmt;
+	
+	@Column(name = "timeRep")
+	private Date timeRep;
+	
 	@Column(name = "comment")
 	private String comment;
 	
-	@Column(name = "rate")
+	@Column(name = "admin_id")
+	private Long adminId;
+	
+	@Column(name = "reply")
+	private String reply;
+	
+	@Column(name = "rating")
 	private Long rating;
 	
-	@ManyToMany
-	@JoinTable(name = "product_comment",
-	joinColumns = @JoinColumn(name = "comment_id", referencedColumnName = "id"),
-	inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"))
-	private List<ProductEntity> products = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name = "product_id", referencedColumnName = "id")
+	private ProductEntity product;
 	
-	@ManyToMany(mappedBy = "comments")
-	private List<UserEntity> users = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	private UserEntity user;
 	
 
 	public String getComment() {
 		return comment;
 	}
-
-
 
 	public void setComment(String comment) {
 		this.comment = comment;
@@ -46,21 +60,61 @@ public class CommentEntity extends BaseEntity {
 	public void setRating(Long rating) {
 		this.rating = rating;
 	}
-	
-	public List<ProductEntity> getProducts() {
-		return products;
+
+	public Long getAdminId() {
+		return adminId;
 	}
-	
-	public void setProducts(List<ProductEntity> products) {
-		this.products = products;
+
+	public void setAdminId(Long adminId) {
+		this.adminId = adminId;
 	}
-	
-	public List<UserEntity> getUsers() {
-		return users;
+
+	public String getReply() {
+		return reply;
 	}
-	
-	public void setUsers(List<UserEntity> users) {
-		this.users = users;
+
+	public void setReply(String reply) {
+		this.reply = reply;
+	}
+
+	public ProductEntity getProduct() {
+		return product;
+	}
+
+	public void setProduct(ProductEntity product) {
+		this.product = product;
+	}
+
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getTimeCmt() {
+		return timeCmt;
+	}
+
+	public void setTimeCmt(Date timeCmt) {
+		this.timeCmt = timeCmt;
+	}
+
+	public Date getTimeRep() {
+		return timeRep;
+	}
+
+	public void setTimeRep(Date timeRep) {
+		this.timeRep = timeRep;
 	}
 	
 }

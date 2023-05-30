@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.business.dto.ColorDTO;
+import com.business.dto.CommentDTO;
 import com.business.dto.ProductDTO;
 import com.business.dto.TypeDTO;
 import com.business.entity.ColorEntity;
+import com.business.entity.CommentEntity;
 import com.business.entity.ProductEntity;
 import com.business.entity.ProductMemoryEntity;
 
@@ -23,6 +25,9 @@ public class ProductConverter {
 	
 	@Autowired
 	private CategoryConverter categoryConverter;
+	
+	@Autowired
+	private CommentConverter commentConverter;
 	
 	public ProductEntity toEntity(ProductDTO dto) {
 		ProductEntity entity = new ProductEntity();
@@ -62,6 +67,14 @@ public class ProductConverter {
 			typeDTOs.add(typeDTO);
 		}
 		dto.setList(typeDTOs);
+		
+		List<CommentEntity> commentEntities = entity.getComments(); 
+		List<CommentDTO> commentDTOs = new ArrayList<>();
+		for(CommentEntity commentEntity: commentEntities) {
+			CommentDTO commentDTO = commentConverter.toDTO(commentEntity);
+			commentDTOs.add(commentDTO);
+		}
+		dto.setCommentDTOs(commentDTOs);
 		return dto;
 	}
 	public ProductEntity toEntity(ProductDTO dto, ProductEntity entity) {

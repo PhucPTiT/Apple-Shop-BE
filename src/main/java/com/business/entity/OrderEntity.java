@@ -8,59 +8,132 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "orders")
-public class OrderEntity extends BaseEntity {
-	@Column(name = "order_date")
-	private Date orderDate;
+public class OrderEntity{
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name = "sku")
+	private String sku;
+	
+	@Column(name = "fullName")
+	private String fullName;
+	
+	@Column(name = "sex")
+	private String sex;
+	
+	@Column(name = "order_phone")
+	private String orderPhone;
+	
+	@Column(name = "email")
+	private String email;
+	
+	@Column(name = "order_time")
+	private Date orderTime;
 	
 	@Column(name = "order_address")
-	private String oderAddress;
+	private String orderAddress;
 	
-	@Column(name = "order_tel")
-	private String oderTel;
-	
-	public String getOderAddress() {
-		return oderAddress;
-	}
-
-	public void setOderAddress(String oderAddress) {
-		this.oderAddress = oderAddress;
-	}
-
-	public String getOderTel() {
-		return oderTel;
-	}
-
-	public void setOderTel(String oderTel) {
-		this.oderTel = oderTel;
-	}
-
 	@Column(name = "total_price")
 	private BigDecimal totalPrice;
 	
 	@Column(name = "Status")
 	private String status;
 	
-	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<OrderItemEntity> orderitems = new ArrayList<>();
+	@Column(name = "checkCmt")
+	private int checkCmt;
 	
-    @OneToOne
-    @JoinColumn(name = "user_id")
-	private UserEntity user;
-	
-
-	public Date getOrderDate() {
-		return orderDate;
+	public int getCheckCmt() {
+		return checkCmt;
 	}
 
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
+	public void setCheckCmt(int checkCmt) {
+		this.checkCmt = checkCmt;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	private UserEntity user;
+	
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<OrderItemEntity> productOrders = new ArrayList<>();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getSku() {
+		return sku;
+	}
+
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getOrderPhone() {
+		return orderPhone;
+	}
+
+	public void setOrderPhone(String orderPhone) {
+		this.orderPhone = orderPhone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Date getOrderTime() {
+		return orderTime;
+	}
+
+	public void setOrderTime(Date orderTime) {
+		this.orderTime = orderTime;
+	}
+
+	
+
+	public String getOrderAddress() {
+		return orderAddress;
+	}
+
+	public void setOrderAddress(String orderAddress) {
+		this.orderAddress = orderAddress;
 	}
 
 	public BigDecimal getTotalPrice() {
@@ -79,20 +152,21 @@ public class OrderEntity extends BaseEntity {
 		this.status = status;
 	}
 
-	public List<OrderItemEntity> getOrderitems() {
-		return orderitems;
-	}
-
-	public void setOrderitems(List<OrderItemEntity> orderitems) {
-		this.orderitems = orderitems;
-	}
-	
 	public UserEntity getUser() {
 		return user;
 	}
-	
+
 	public void setUser(UserEntity user) {
 		this.user = user;
 	}
+
+	public List<OrderItemEntity> getProductOrders() {
+		return productOrders;
+	}
+
+	public void setProductOrders(List<OrderItemEntity> productOrders) {
+		this.productOrders = productOrders;
+	}
+	
 	
 }

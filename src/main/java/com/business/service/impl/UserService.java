@@ -1,5 +1,8 @@
 package com.business.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -49,9 +52,11 @@ public class UserService implements IUserService {
 	        throw new RuntimeException("Mật khẩu không chính xác");
 	    } 
 	    HttpStatus httpStatus = HttpStatus.OK;
-	    String token = jwtService.generateTokenLogin(userEntity.getUsername(), userEntity.getRole());
+	    String token = jwtService.generateTokenLogin(userEntity.getUsername(), userEntity.getRole(), userEntity.getFullName(), userEntity.getId());
 	    return ResponseEntity.status(httpStatus).body(token);
 	}
+	
+	//add account admin for website
 	@PostConstruct
     public void createAdminAccount() {
         UserEntity existingAdmin = userRepository.findByUsername("admin");
@@ -63,7 +68,50 @@ public class UserService implements IUserService {
             userRepository.save(admin);
         }
     }
-	
+
+	@Override
+	public ResponseEntity<String> changePassword(UserDTO userDTO) {
+		UserEntity userEntity = userRepository.findByUsername(userDTO.getUserName());
+		String passType = userDTO.getPassword();
+		if(!BCrypt.checkpw(passType, userEntity.getPassword())) {
+	        throw new RuntimeException("Mật khẩu không chính xác");
+	    } 
+		else {
+			String hashedPassWord = BCrypt.hashpw(userDTO.getNewPass(), BCrypt.gensalt());
+			userEntity.setPassword(hashedPassWord);
+			userEntity = userRepository.save(userEntity);
+			return ResponseEntity.status(HttpStatus.OK).body("Đổi mật khẩu thành công");
+		}
+	}
+
+	@Override
+	public UserDTO getUserById(Long id) {
+		UserEntity userEntity = userRepository.findOne(id);
+		return userConverter.toDTO(userEntity);
+	}
+
+	@Override
+	public List<UserDTO> getAllUser() {
+		List<UserEntity> entities = userRepository.findAll();
+		List<UserDTO> dtos = new ArrayList<>();
+		for(UserEntity userEntity : entities) {
+			UserDTO userDTO = userConverter.toDTO(userEntity);
+			dtos.add(userDTO);
+		}
+		return dtos;
+	}
+
+	@Override
+	public void delete(Long id) {
+		userRepository.delete(id);
+	}
+
+	@Override
+	public ResponseEntity<String> changeInfo(UserDTO userDTO, Long id) {
+		UserEntity userEx = userRepository.findOne(id);
+		userEx = userRepository.save(userConverter.toEntity( userDTO, userEx));
+		return ResponseEntity.status(HttpStatus.OK).body("Đổi thông tin tài khoản thành công");
+	}
 	
 	
 }

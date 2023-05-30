@@ -13,6 +13,7 @@ public class ProductDTO extends AbstractDTO {
 	
 	private CategoryDTO categoryDTO;
 	private List<ColorDTO> colorDTOs;
+	private List<CommentDTO> commentDTOs;
 	
 	
 	public String getName() {
@@ -68,6 +69,12 @@ public class ProductDTO extends AbstractDTO {
 	}
 	public void setColorDTOs(List<ColorDTO> colorDTOs) {
 		this.colorDTOs = colorDTOs;
+	}
+	public List<CommentDTO> getCommentDTOs() {
+		return commentDTOs;
+	}
+	public void setCommentDTOs(List<CommentDTO> commentDTOs) {
+		this.commentDTOs = commentDTOs;
 	}
 
 	

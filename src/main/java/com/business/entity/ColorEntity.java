@@ -14,6 +14,9 @@ import javax.persistence.Table;
 public class ColorEntity extends BaseEntity {
 	@Column(name = "color")
 	private String color;
+	
+	@Column(name = "code")
+	private String code;
 
 	@ManyToMany(mappedBy = "colors", cascade = CascadeType.ALL)
 	private List<ProductEntity> products = new ArrayList<>();
@@ -32,6 +35,14 @@ public class ColorEntity extends BaseEntity {
 
 	public void setProducts(List<ProductEntity> products) {
 		this.products = products;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 	

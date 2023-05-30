@@ -9,6 +9,10 @@ public class UserDTO extends AbstractDTO {
 	private int role;
 	private String email;
 	
+	private String images;
+	private String newPass;
+	
+	
 	public String getAddress() {
 		return address;
 	}
@@ -52,6 +56,22 @@ public class UserDTO extends AbstractDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public int getRole() {
+		return role;
+	}
+	public String getImages() {
+		return images;
+	}
+	public void setImages(String images) {
+		this.images = images;
+	}
+	public String getNewPass() {
+		return newPass;
+	}
+	public void setNewPass(String newPass) {
+		this.newPass = newPass;
+	}
+
 	
 		
 }
